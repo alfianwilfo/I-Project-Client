@@ -1,9 +1,15 @@
 <script>
+import formLogin from "../components/formLogin.vue";
 export default {
   name: "login",
+  components: {
+    formLogin,
+  },
 };
 </script>
 
 <template>
-  <h1>login</h1>
+  <section class="container">
+    <formLogin />
+  </section>
 </template>
