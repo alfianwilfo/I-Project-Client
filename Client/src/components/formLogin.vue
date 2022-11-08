@@ -1,8 +1,9 @@
 <script>
 import { useUserStore } from "../stores/user";
 import { mapStores, mapActions } from "pinia";
+import { RouterLink } from "vue-router";
 export default {
-  name: "formRegister",
+  name: "formLogin",
   data() {
     return {
       email: "",
@@ -10,10 +11,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useUserStore, ["register"]),
-    async registerHandler() {
+    ...mapActions(useUserStore, ["login"]),
+    async loginHandler() {
       try {
-        this.register({ email: this.email, password: this.password });
+        this.login({ email: this.email, password: this.password });
       } catch (error) {
         Swal.fire("Opss!", "Something wrong", "error");
       }
@@ -50,15 +51,15 @@ export default {
           />
         </div>
         <button
-          @click.prevent="registerHandler"
+          @click.prevent="loginHandler"
           type="submit"
           class="btn btn-primary"
         >
           Submit
         </button>
         <span>
-          Already have account?<RouterLink :to="{ name: 'login' }"
-            >Login here</RouterLink
+          Don't have account?<RouterLink :to="{ name: 'register' }"
+            >Register here</RouterLink
           >
         </span>
       </div>
