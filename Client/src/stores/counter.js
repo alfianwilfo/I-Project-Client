@@ -2,13 +2,19 @@
 
 import { defineStore } from "pinia";
 import axios from "axios";
+import { RouterLink } from "vue-router";
+// import { snap } from "../assets/snap";
+// // snap.
+
+// import snap from "../assets/snap";
 
 export const useCounterStore = defineStore("counter", {
   state: () => ({
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://berita-server.herokuapp.com",
     isLogin: false,
     news: [],
     selectedNews: {},
+    status: localStorage.status,
   }),
   actions: {
     async register(obj) {
@@ -50,6 +56,7 @@ export const useCounterStore = defineStore("counter", {
         localStorage.status = data.status;
         this.router.push({ name: "home" });
         this.isLogin = true;
+        this.status = data.status;
       } catch (error) {
         Swal.fire(error.response.data.message);
       }
@@ -85,7 +92,6 @@ export const useCounterStore = defineStore("counter", {
     },
     async selectNews(id) {
       try {
-        console.log(id);
         this.news.forEach((el) => {
           if (el.id === id) {
             // console.log(el);
@@ -93,6 +99,41 @@ export const useCounterStore = defineStore("counter", {
           }
         });
         this.router.push({ name: "detail" });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getPremium() {
+      // console.log(localStorage.email);
+
+      try {
+        let { data } = await axios({
+          url: `${this.baseUrl}/payment`,
+          method: "get",
+        });
+
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Pay !",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.open(data.data.redirect_url, "_blank");
+            axios({
+              url: `${this.baseUrl}/payment`,
+              method: "post",
+              data: {
+                email: localStorage.email,
+                token: data.data.token,
+                orderId: data.orderId,
+              },
+            });
+          }
+        });
       } catch (error) {
         console.log(error);
       }
