@@ -9,7 +9,7 @@ export default {
 </script>
 
 <template>
-  <section class="container">
+  <section class="container flex justify-center">
     <formLogin />
   </section>
 </template>

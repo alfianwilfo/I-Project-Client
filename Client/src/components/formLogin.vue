@@ -1,5 +1,5 @@
 <script>
-import { useUserStore } from "../stores/user";
+import { useCounterStore } from "../stores/counter";
 import { mapStores, mapActions } from "pinia";
 import { RouterLink } from "vue-router";
 export default {
@@ -11,7 +11,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useUserStore, ["login"]),
+    ...mapActions(useCounterStore, ["login"]),
     async loginHandler() {
       try {
         this.login({ email: this.email, password: this.password });
@@ -20,67 +20,56 @@ export default {
       }
     },
   },
+  computed: {
+    ...mapStores(useCounterStore, ["isLogin"]),
+  },
 };
 </script>
 <template>
-  <form style="padding-top: 10em">
-    <div class="d-flex justify-content-sm-between">
-      <div class="p-2 flex-fill">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Email address</label
-          >
-          <input
-            type="email"
-            v-model="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-          />
-          <div id="emailHelp" class="form-text">
-            We'll never share your email with anyone else.
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input
-            v-model="password"
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-          />
-        </div>
-        <button
-          @click.prevent="loginHandler"
-          type="submit"
-          class="btn btn-primary"
-        >
-          Submit
-        </button>
-        <span>
-          Don't have account?<RouterLink :to="{ name: 'register' }"
-            >Register here</RouterLink
-          >
-        </span>
-      </div>
-      <div class="fill">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Solid_red.svg/768px-Solid_red.svg.png?20150316143248"
-          alt=""
-        />
-      </div>
+  <form class="container mx-auto">
+    <div class="grid gap-6 mb-6 md:grid-cols-2"></div>
+    <div class="mb-6">
+      <label
+        for="email"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >Email address</label
+      >
+      <input
+        v-model="email"
+        type="email"
+        id="email"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="john.doe@company.com"
+        required=""
+      />
+    </div>
+    <div class="mb-6">
+      <label
+        for="password"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >Password</label
+      >
+      <input
+        v-model="password"
+        type="password"
+        id="password"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="•••••••••"
+        required=""
+      />
+    </div>
+    <div class="flex flex-row">
+      <button
+        @click.prevent="loginHandler"
+        type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Submit
+      </button>
+      <p style="padding-top: 0.5em; padding-left: 1em">
+        Don't have account ?
+        <RouterLink :to="{ name: 'register' }">Register here</RouterLink>
+      </p>
     </div>
   </form>
 </template>
-<style>
-.fill {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-.fill img {
-  flex-shrink: 0;
-  width: 15em;
-}
-</style>

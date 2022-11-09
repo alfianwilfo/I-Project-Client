@@ -1,5 +1,6 @@
 <script>
-import { useUserStore } from "../stores/user";
+import { useCounterStore } from "../stores/counter";
+
 import { mapStores, mapActions } from "pinia";
 export default {
   name: "formRegister",
@@ -10,7 +11,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useUserStore, ["register"]),
+    ...mapActions(useCounterStore, ["register"]),
     async registerHandler() {
       try {
         this.register({ email: this.email, password: this.password });
