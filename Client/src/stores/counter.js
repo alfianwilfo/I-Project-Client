@@ -9,6 +9,7 @@ export const useCounterStore = defineStore("counter", {
     isLogin: false,
     news: [],
     selectedNews: {},
+    status: localStorage.status,
   }),
   actions: {
     async register(obj) {
@@ -50,6 +51,7 @@ export const useCounterStore = defineStore("counter", {
         localStorage.status = data.status;
         this.router.push({ name: "home" });
         this.isLogin = true;
+        this.status = data.status;
       } catch (error) {
         Swal.fire(error.response.data.message);
       }
@@ -85,7 +87,6 @@ export const useCounterStore = defineStore("counter", {
     },
     async selectNews(id) {
       try {
-        console.log(id);
         this.news.forEach((el) => {
           if (el.id === id) {
             // console.log(el);
@@ -93,6 +94,13 @@ export const useCounterStore = defineStore("counter", {
           }
         });
         this.router.push({ name: "detail" });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getPremium() {
+      console.log(localStorage.email);
+      try {
       } catch (error) {
         console.log(error);
       }

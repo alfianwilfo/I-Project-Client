@@ -6,7 +6,12 @@ import { RouterLink } from "vue-router";
 export default {
   name: "navbar",
   methods: {
-    ...mapActions(useCounterStore, ["toLogin", "toRegister", "logout"]),
+    ...mapActions(useCounterStore, [
+      "toLogin",
+      "toRegister",
+      "logout",
+      "getPremium",
+    ]),
     forLogout() {
       this.logout();
     },
@@ -16,9 +21,13 @@ export default {
     pageRegister() {
       this.toRegister();
     },
+    toPremium() {
+      // console.log("masuk");
+      this.getPremium();
+    },
   },
   computed: {
-    ...mapState(useCounterStore, ["isLogin"]),
+    ...mapState(useCounterStore, ["isLogin", "status"]),
   },
 };
 </script>
@@ -71,6 +80,16 @@ export default {
               class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
               aria-current="page"
               >Home</a
+            >
+          </li>
+          <li>
+            <a
+              @click="toPremium"
+              v-if="status === 'Basic' && isLogin === true"
+              href="#"
+              class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+              aria-current="page"
+              >Premium</a
             >
           </li>
           <li>

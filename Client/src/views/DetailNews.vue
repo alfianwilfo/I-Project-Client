@@ -4,7 +4,7 @@ import { mapState, mapActions } from "pinia";
 export default {
   name: "DetailNews",
   computed: {
-    ...mapState(useCounterStore, ["selectedNews"]),
+    ...mapState(useCounterStore, ["selectedNews", "status"]),
   },
 };
 </script>
@@ -17,7 +17,9 @@ export default {
         <h2 class="card-title">{{ selectedNews.title }}</h2>
         <p>{{ selectedNews.description }}</p>
         <div class="card-actions justify-end">
-          <button class="btn btn-primary">Learn now!</button>
+          <button class="btn btn-primary" v-if="status === 'Premium'">
+            Get !
+          </button>
         </div>
       </div>
     </div>
