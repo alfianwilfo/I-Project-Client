@@ -10,7 +10,7 @@ import { RouterLink } from "vue-router";
 
 export const useCounterStore = defineStore("counter", {
   state: () => ({
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://berita-server.herokuapp.com",
     isLogin: false,
     news: [],
     selectedNews: {},
@@ -111,7 +111,6 @@ export const useCounterStore = defineStore("counter", {
           url: `${this.baseUrl}/payment`,
           method: "get",
         });
-        console.log(data);
 
         Swal.fire({
           title: "Are you sure?",
@@ -124,6 +123,15 @@ export const useCounterStore = defineStore("counter", {
         }).then((result) => {
           if (result.isConfirmed) {
             window.open(data.data.redirect_url, "_blank");
+            axios({
+              url: `${this.baseUrl}/payment`,
+              method: "post",
+              data: {
+                email: localStorage.email,
+                token: data.data.token,
+                orderId: data.orderId,
+              },
+            });
           }
         });
       } catch (error) {
