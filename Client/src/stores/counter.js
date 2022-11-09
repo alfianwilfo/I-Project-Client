@@ -35,7 +35,7 @@ export const useCounterStore = defineStore("counter", {
           showConfirmButton: false,
           timer: 1500,
         });
-        router.push({ name: "login" });
+        this.router.push({ name: "login" });
       } catch (error) {
         Swal.fire(error.response.data.message);
       }
@@ -137,6 +137,9 @@ export const useCounterStore = defineStore("counter", {
       } catch (error) {
         console.log(error);
       }
+    },
+    async goHome() {
+      this.router.push({ name: "home" });
     },
   },
 });

@@ -15,8 +15,8 @@ export default {
 </script>
 
 <template>
-  <div class="card w-96 bg-base-100 shadow-xl image-full">
-    <figure><img :src="niws.thumbnail" alt="Shoes" /></figure>
+  <div class="card w-96 bg-base-100 image-full" style="padding-top: 10em">
+    <figure><img :src="niws.thumbnail" /></figure>
     <div class="card-body">
       <h2 class="card-title">{{ niws.title }}</h2>
       <p>{{ niws.description }}</p>

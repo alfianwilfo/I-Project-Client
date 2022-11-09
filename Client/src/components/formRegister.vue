@@ -23,64 +23,62 @@ export default {
 };
 </script>
 <template>
-  <form style="padding-top: 10em">
-    <div class="d-flex justify-content-sm-between">
-      <div class="p-2 flex-fill">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Email address</label
-          >
-          <input
-            type="email"
-            v-model="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-          />
-          <div id="emailHelp" class="form-text">
-            We'll never share your email with anyone else.
+  <div
+    class="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0"
+  >
+    <div
+      class="flex rounded-lg shadow-lg w-full sm:w-3/4 lg:w-1/2 bg-white sm:mx-0"
+      style="height: 500px"
+    >
+      <div class="flex flex-col w-full md:w-1/2 p-4">
+        <div class="flex flex-col flex-1 justify-center mb-8">
+          <h1 class="text-4xl text-center font-thin">Welcome</h1>
+          <div class="w-full mt-4">
+            <form class="form-horizontal w-3/4 mx-auto">
+              <div class="flex flex-col mt-4">
+                <input
+                  v-model="email"
+                  id="email"
+                  type="text"
+                  class="flex-grow h-8 px-2 border rounded border-grey-400"
+                  name="email"
+                  placeholder="Email"
+                />
+              </div>
+              <div class="flex flex-col mt-4">
+                <input
+                  v-model="password"
+                  id="password"
+                  type="password"
+                  class="flex-grow h-8 px-2 rounded border border-grey-400"
+                  name="password"
+                  required
+                  placeholder="Password"
+                />
+              </div>
+              <div class="flex flex-col mt-8">
+                <button
+                  type="submit"
+                  @click.prevent="registerHandler"
+                  class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded"
+                >
+                  Register
+                </button>
+              </div>
+
+              <h2 style="text-decoration-color: aqua">asas</h2>
+            </form>
           </div>
         </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input
-            v-model="password"
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-          />
-        </div>
-        <button
-          @click.prevent="registerHandler"
-          type="submit"
-          class="btn btn-primary"
-        >
-          Submit
-        </button>
-        <span>
-          Already have account?<RouterLink :to="{ name: 'login' }"
-            >Login here</RouterLink
-          >
-        </span>
       </div>
-      <div class="fill">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Solid_red.svg/768px-Solid_red.svg.png?20150316143248"
-          alt=""
-        />
-      </div>
+      <div
+        class="hidden md:block md:w-1/2 rounded-r-lg"
+        style="
+          background: url('https://akcdn.detik.net.id/community/media/visual/2022/07/13/ilustrasi-baca-berita.jpeg?w=700&q=90');
+          background-size: cover;
+          background-position: center center;
+        "
+      ></div>
     </div>
-  </form>
+  </div>
 </template>
-<style>
-.fill {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-.fill img {
-  flex-shrink: 0;
-  width: 15em;
-}
-</style>
