@@ -8,7 +8,7 @@ export default {
 };
 </script>
 <template>
-  <section class="container">
+  <section class="flex justify-center content-center" style="padding-top: 10em">
     <formRegister />
   </section>
 </template>

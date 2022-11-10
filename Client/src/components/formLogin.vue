@@ -11,10 +11,17 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useCounterStore, ["login"]),
+    ...mapActions(useCounterStore, ["login", "toRegister"]),
     async loginHandler() {
       try {
         this.login({ email: this.email, password: this.password });
+      } catch (error) {
+        Swal.fire("Opss!", "Something wrong", "error");
+      }
+    },
+    async toRegis() {
+      try {
+        this.toRegister();
       } catch (error) {
         Swal.fire("Opss!", "Something wrong", "error");
       }
@@ -26,50 +33,69 @@ export default {
 };
 </script>
 <template>
-  <form class="container mx-auto">
-    <div class="grid gap-6 mb-6 md:grid-cols-2"></div>
-    <div class="mb-6">
-      <label
-        for="email"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        >Email address</label
-      >
-      <input
-        v-model="email"
-        type="email"
-        id="email"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="john.doe@company.com"
-        required=""
-      />
+  <div
+    class="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0"
+  >
+    <div
+      class="flex rounded-lg shadow-lg w-full sm:w-3/4 lg:w-1/2 bg-white sm:mx-0"
+      style="height: 500px"
+    >
+      <div class="flex flex-col w-full md:w-1/2 p-4">
+        <div class="flex flex-col flex-1 justify-center mb-8">
+          <h1 class="text-4xl text-center font-thin">Welcome</h1>
+          <div class="w-full mt-4">
+            <form class="form-horizontal w-3/4 mx-auto">
+              <div class="flex flex-col mt-4">
+                <input
+                  v-model="email"
+                  id="email"
+                  type="text"
+                  class="flex-grow h-8 px-2 border rounded border-grey-400"
+                  name="email"
+                  placeholder="Email"
+                />
+              </div>
+              <div class="flex flex-col mt-4">
+                <input
+                  v-model="password"
+                  id="password"
+                  type="password"
+                  class="flex-grow h-8 px-2 rounded border border-grey-400"
+                  name="password"
+                  required
+                  placeholder="Password"
+                />
+              </div>
+              <div class="flex flex-col mt-8">
+                <button
+                  type="submit"
+                  @click.prevent="loginHandler"
+                  class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded"
+                >
+                  Register
+                </button>
+              </div>
+
+              <h2 style="text-decoration-color: aqua">
+                Don't have account?<button
+                  class="btn btn-link"
+                  @click.prevent="toRegis"
+                >
+                  register
+                </button>
+              </h2>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div
+        class="hidden md:block md:w-1/2 rounded-r-lg"
+        style="
+          background: url('https://akcdn.detik.net.id/community/media/visual/2022/07/13/ilustrasi-baca-berita.jpeg?w=700&q=90');
+          background-size: cover;
+          background-position: center center;
+        "
+      ></div>
     </div>
-    <div class="mb-6">
-      <label
-        for="password"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        >Password</label
-      >
-      <input
-        v-model="password"
-        type="password"
-        id="password"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="•••••••••"
-        required=""
-      />
-    </div>
-    <div class="flex flex-row">
-      <button
-        @click.prevent="loginHandler"
-        type="submit"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        Submit
-      </button>
-      <p style="padding-top: 0.5em; padding-left: 1em">
-        Don't have account ?
-        <RouterLink :to="{ name: 'register' }">Register here</RouterLink>
-      </p>
-    </div>
-  </form>
+  </div>
 </template>
