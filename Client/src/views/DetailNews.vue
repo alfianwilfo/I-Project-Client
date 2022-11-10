@@ -15,7 +15,7 @@ export default {
 
 <template>
   <navbar />
-  <section class="flex justify-center" style="padding-top: 10em">
+  <section class="flex justify-center" style="padding-top: 4em">
     <div class="card w-96 glass">
       <figure><img :src="selectedNews.thumbnail" /></figure>
       <div class="card-body">

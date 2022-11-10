@@ -11,10 +11,17 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useCounterStore, ["login"]),
+    ...mapActions(useCounterStore, ["login", "toRegister"]),
     async loginHandler() {
       try {
         this.login({ email: this.email, password: this.password });
+      } catch (error) {
+        Swal.fire("Opss!", "Something wrong", "error");
+      }
+    },
+    async toRegis() {
+      try {
+        this.toRegister();
       } catch (error) {
         Swal.fire("Opss!", "Something wrong", "error");
       }
@@ -69,7 +76,14 @@ export default {
                 </button>
               </div>
 
-              <h2 style="text-decoration-color: aqua">asas</h2>
+              <h2 style="text-decoration-color: aqua">
+                Don't have account?<button
+                  class="btn btn-link"
+                  @click.prevent="toRegis"
+                >
+                  register
+                </button>
+              </h2>
             </form>
           </div>
         </div>

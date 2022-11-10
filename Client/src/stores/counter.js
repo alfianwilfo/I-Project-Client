@@ -11,10 +11,12 @@ import { RouterLink } from "vue-router";
 export const useCounterStore = defineStore("counter", {
   state: () => ({
     baseUrl: "https://berita-server.herokuapp.com",
+    // baseUrl: "http://localhost:3000",
     isLogin: false,
     news: [],
     selectedNews: {},
     status: localStorage.status,
+    weather: {},
   }),
   actions: {
     async register(obj) {
@@ -28,6 +30,7 @@ export const useCounterStore = defineStore("counter", {
             password,
           },
         });
+        // console.log("sasas");
         Swal.fire({
           position: "center",
           icon: "success",
@@ -37,6 +40,7 @@ export const useCounterStore = defineStore("counter", {
         });
         this.router.push({ name: "login" });
       } catch (error) {
+        console.log(error);
         Swal.fire(error.response.data.message);
       }
     },
@@ -140,6 +144,13 @@ export const useCounterStore = defineStore("counter", {
     },
     async goHome() {
       this.router.push({ name: "home" });
+    },
+    async getWeather() {
+      let { data } = await axios({
+        url: "http://api.weatherapi.com/v1/current.json?key=8b8ebdc80115456c85840905221011&q=Jakarta&aqi=no",
+        method: "get",
+      });
+      this.weather = data;
     },
   },
 });
